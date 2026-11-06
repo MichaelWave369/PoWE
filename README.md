@@ -92,12 +92,23 @@ BenchLink can ingest a local NDJSON transcript or read it with a user-approved W
 - Web Serial is strictly **read-only** from the browser; no device commands, physical shutoff or energy output are included.
 - [BenchLink protocol and hardware-safety boundaries](docs/BENCHLINK_PROTOCOL.md).
 
+## Rung 5: Commissioning Gate
+
+- Deterministic synthetic protocol conformance: run the same fixtures through the actual BenchLink parser, with required eligible, ineligible and rejected outcomes.
+- Browser conformance dashboard and local synthetic NDJSON downloads.
+- SHA-256 fixture byte-integrity manifest and local audit receipt, **not a cryptographic hardware authentication**.
+- Operator checklist for real-world electrical, optical, metrology and workflow readiness, explicitly **self-attestation only**.
+- Repeat checks in Node using npm run qualify. CI also runs this command.
+- [Commissioning limitations and real-world qualification guide](docs/COMMISSIONING.md).
+
+**No physical device, transmitter, meter, optical-power link or safety interlock was operated or verified.** The synthetic harness cannot establish real wireless energy-transfer performance.
+
 ## Roadmap
 
 1. **Rung 1 (this branch):** simulator, explicit assumptions, browser dashboard, pairing invitation schema, tests.
 2. **Rung 2 (this branch):** local CSV measurement importer with units, calibration metadata and measured/simulated separation.
-3. **Rung 3 (this branch):** optical trial planner, strictly paired analysis and dry-run protocols. Real hardware measurements remain future work.
-4. **Rung 4 (this branch):** read-only instrument telemetry adapter and BenchKit trial export. Actual device and LightBridge adapter validation remain future work.
-5. **Rung 5:** reproducible controlled comparison against uncoordinated network scheduling.
+3. **Rung 3:** optical trial planner, strictly paired analysis and dry-run protocols. Real hardware measurements remain future work.
+4. **Rung 4:** read-only instrument telemetry adapter and BenchKit trial export. Actual device and LightBridge adapter validation remain future work.
+5. **Rung 5 (this branch):** synthetic commissioning, conformance harness and operator readiness guidance. Real controlled comparisons are still future work.
 
 Original PoWE code is released under the [MIT license](LICENSE). Hardware safety and legal compliance remain the responsibility of anyone performing physical experiments.

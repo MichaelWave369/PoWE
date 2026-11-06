@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="./src/measurements.css" />
   <link rel="stylesheet" href="./src/benchkit.css" />
   <link rel="stylesheet" href="./src/benchlink.css" />
+  <link rel="stylesheet" href="./src/commissioning.css" />
 </head>
 <body>
   <main class="shell">
@@ -218,11 +219,49 @@
       </div>
     </section>
 
+
+    <section id="commissioning" class="panel commission" aria-labelledby="commission-title">
+      <div class="section-title"><span>07 / COMMISSIONING GATE</span><span>RUNG 05 · SOFTWARE ONLY</span></div>
+      <h2 id="commission-title">Trust the measurements, not the pretty numbers.</h2>
+      <p>Run the real BenchLink parser against deliberately corrupted and valid <strong>synthetic</strong> streams. Review expected outcomes, export a fixture-integrity receipt, and record a human bench-readiness checklist. No actual power device is controlled or certified.</p>
+      <div class="commission-columns">
+        <div class="commission-pane">
+          <h3>A / Synthetic protocol conformance</h3>
+          <p>Check missing data, malformed framing, impossible timestamps, fault reports, claimed calibration and accepted test sessions.</p>
+          <div class="commission-actions">
+            <button id="commission-run" class="primary">RUN SYNTHETIC CHECKS</button>
+            <button id="commission-receipt" disabled>DOWNLOAD SHA-256 AUDIT</button>
+            <button id="commission-clear">CLEAR</button>
+          </div>
+          <div class="commission-metrics">
+            <div><small>SCENARIOS PASSED</small><strong id="commission-passed">Not run</strong></div>
+            <div><small>PHYSICAL VALIDATION</small><strong id="commission-hardware">NOT VALIDATED</strong></div>
+          </div>
+          <p id="commission-status" class="commission-status" role="status" aria-live="polite">No conformance test has run in this browser tab.</p>
+          <div class="commission-scroller">
+            <table><thead><tr><th>TEST</th><th>EXPECTED</th><th>ACTUAL</th><th>PASS?</th></tr></thead><tbody id="commission-rows"></tbody></table>
+          </div>
+          <label for="commission-fixture" class="commission-fixture">Download a clearly labeled synthetic NDJSON stream
+            <select id="commission-fixture"></select>
+          </label>
+          <div class="commission-actions"><button id="commission-download">DOWNLOAD SYNTHETIC STREAM</button></div>
+        </div>
+        <div class="commission-pane">
+          <h3>B / Human readiness checklist</h3>
+          <p>These checkboxes are self-attestation, never electrical inspection, regulatory approval or permission to energize a system.</p>
+          <div id="commission-checklist" class="commission-checks"></div>
+          <p class="commission-attest"><strong id="commission-marked">0 / 10</strong> checked<br /><span id="commission-checklist-state">NOT COMPLETE</span></p>
+          <p class="commission-warning">A 100% green software test only qualifies the parser against the supplied synthetic scenarios. For a real experiment, use independently reviewed hardware, calibrated meters and a physical cutoff. <a href="https://github.com/MichaelWave369/PoWE/blob/main/docs/COMMISSIONING.md" target="_blank" rel="noopener noreferrer">Rung 5 guide ↗</a></p>
+        </div>
+      </div>
+    </section>
+
     <footer><span>PoWE / POWER OVER WIRELESS EXCHANGE</span><span>OPEN RESEARCH · LOCAL FIRST · NO REAL POWER TRANSMISSION</span></footer>
   </main>
   <script type="module" src="./src/app.js"></script>
   <script type="module" src="./src/measurements-ui.js"></script>
   <script type="module" src="./src/benchkit-ui.js"></script>
   <script type="module" src="./src/benchlink-ui.js"></script>
+  <script type="module" src="./src/commissioning-ui.js"></script>
 </body>
 </html>
