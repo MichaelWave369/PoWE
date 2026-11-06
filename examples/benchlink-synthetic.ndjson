@@ -1,0 +1,10 @@
+{"protocol":"powe.benchlink.v1","type":"header","session_id":"synthetic-demo-01","kind":"synthetic","apparatus_id":"demo-led","timestamp_utc":"2026-10-10T12:00:00Z"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"synthetic-demo-01","sequence":0,"elapsed_ms":0,"source_v":5,"source_a":0.02,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"synthetic-demo-01","sequence":1,"elapsed_ms":1000,"source_v":5,"source_a":0.02,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"synthetic-demo-01","sequence":2,"elapsed_ms":2000,"source_v":5,"source_a":0.02,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"synthetic-demo-01","sequence":3,"elapsed_ms":3000,"source_v":5,"source_a":0.02,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"synthetic-demo-01","sequence":4,"elapsed_ms":4000,"source_v":5,"source_a":0.02,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"synthetic-demo-01","sequence":5,"elapsed_ms":5000,"source_v":5,"source_a":0.02,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"synthetic-demo-01","sequence":6,"elapsed_ms":6000,"source_v":5,"source_a":0.02,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"synthetic-demo-01","sequence":7,"elapsed_ms":7000,"source_v":5,"source_a":0.02,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"end","session_id":"synthetic-demo-01","samples":8}
