@@ -1,6 +1,6 @@
 # Safety and operating boundaries
 
-PoWE Rung 1 is software-only and contains **no ability to transmit physical power**.
+PoWE Rungs 1–4 are software-only and contain **no ability to transmit physical power**. BenchLink Rung 4 optionally reads local telemetry through Web Serial or an NDJSON file, but sends no electrical control commands. Opening a serial connection can toggle modem lines on some USB devices, so only use independently reviewed read-only gateways that cannot energize safety-critical outputs.
 
 For any future physical research:
 - Use low-voltage, commercially documented and compliant equipment. Do not construct high-power or unlicensed RF emitters.

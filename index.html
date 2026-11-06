@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="./src/styles.css" />
   <link rel="stylesheet" href="./src/measurements.css" />
   <link rel="stylesheet" href="./src/benchkit.css" />
+  <link rel="stylesheet" href="./src/benchlink.css" />
 </head>
 <body>
   <main class="shell">
@@ -161,10 +162,67 @@
       <p class="bench-alert">Reported measurements are not instrument-authenticated. Trial exclusion is explicit. Ratios describe uploaded data only, not a causal or statistically validated energy-efficiency improvement. <a href="https://github.com/MichaelWave369/PoWE/blob/main/docs/OPTICAL_BENCHKIT.md" target="_blank" rel="noopener noreferrer">BenchKit protocol ↗</a></p>
     </section>
 
+    <section id="benchlink" class="panel benchlink" aria-labelledby="link-title">
+      <div class="section-title"><span>06 / BENCHLINK TELEMETRY</span><span>RUNG 04 · READ-ONLY</span></div>
+      <h2 id="link-title">Bring measurements into the Field.</h2>
+      <p>Read a structured low-voltage, optical bench telemetry stream. Integrate separate source and receiver energy. Preserve a local observation receipt, then export eligible trial rows into Rung 3's BenchKit comparison. <strong>Measured means user-reported, never hardware-authenticated.</strong></p>
+      <div class="link-grid">
+        <div class="link-pane">
+          <h3>A / Acquire a session</h3>
+          <label class="link-file" for="link-file">Import local NDJSON transcript<input id="link-file" type="file" accept=".ndjson,.jsonl,text/plain,application/x-ndjson" /></label>
+          <div class="link-buttons">
+            <button id="link-connect">CONNECT READ-ONLY SERIAL</button>
+            <button id="link-disconnect" disabled>DISCONNECT</button>
+            <button id="link-demo">SYNTHETIC DEMO</button>
+            <button id="link-clear">CLEAR SESSION</button>
+          </div>
+          <p class="link-mini">Serial input: 115200 baud, UTF-8 NDJSON. Browser support varies; HTTPS or localhost required. Connecting may toggle DTR on some devices. Only connect independently safe, read-only gateways. <strong>The software cannot shut down the electrical source.</strong></p>
+          <p id="link-status" class="link-status" role="status" aria-live="polite">No telemetry session loaded. No hardware has been accessed.</p>
+          <div class="link-readouts">
+            <div><small>SESSION ID</small><strong id="link-session">None</strong></div>
+            <div><small>PROVENANCE CLAIM</small><strong id="link-kind">N/A</strong></div>
+            <div><small>SAMPLES</small><strong id="link-samples">0</strong></div>
+            <div><small>RUN STATUS</small><strong id="link-state">INCOMPLETE</strong></div>
+            <div><small>SOURCE ELECTRICAL ENERGY</small><strong id="link-source">0 J</strong></div>
+            <div><small>RECEIVER DC ENERGY</small><strong id="link-receiver">0 J</strong></div>
+            <div><small>INTEGRATED TIME</small><strong id="link-integrated">0 s</strong></div>
+            <div><small>GAPS / FAULTS</small><strong><span id="link-gaps">0</span> / <span id="link-faults">0</span></strong></div>
+          </div>
+          <div class="link-buttons"><button id="link-receipt" disabled>SAVE UNVERIFIED RECEIPT JSON</button></div>
+          <div id="link-issues" class="link-issues" aria-label="Telemetry session issues"></div>
+        </div>
+        <div class="link-pane">
+          <h3>B / Prepare a BenchKit trial row</h3>
+          <p>Only complete, gap-free, fault-free sessions qualify. Task counts and uncertainty must come from independent logs and instrument specifications.</p>
+          <div class="link-fields">
+            <label>Trial ID<input id="link-trial" value="optical-b01-fixed" maxlength="64"/></label>
+            <label>Block ID<input id="link-block" value="optical-b01" maxlength="64"/></label>
+            <label>Schedule<select id="link-condition"><option value="fixed">Fixed</option><option value="adaptive">Adaptive</option></select></label>
+            <label>Sequence<input id="link-sequence" type="number" value="1" min="1" max="2"/></label>
+            <label>Geometry ID<input id="link-geometry" value="geometry-01" maxlength="64"/></label>
+            <label>Task set ID<input id="link-tasks" value="taskset-01" maxlength="64"/></label>
+            <label>Separation (m)<input id="link-distance" type="number" value="1" min=".05" max="5" step=".05"/></label>
+            <label>Requested tasks<input id="link-requested" type="number" value="12" min="1" max="100000"/></label>
+            <label>Completed tasks<input id="link-completed" type="number" value="7" min="0" max="100000"/></label>
+            <label>Source energy uncertainty (J)<input id="link-uncertainty-source" type="number" value="" min="0" step="any" placeholder="Required for reported"/></label>
+            <label>Receiver energy uncertainty (J)<input id="link-uncertainty-receiver" type="number" value="" min="0" step="any" placeholder="Required for reported"/></label>
+          </div>
+          <div class="link-buttons">
+            <button id="link-queue-trial" class="primary" disabled>QUEUE ELIGIBLE TRIAL</button>
+            <button id="link-export" disabled>EXPORT BENCHKIT CSV</button>
+            <button id="link-clear-queue" disabled>CLEAR QUEUE</button>
+          </div>
+          <p class="link-mini">Queued trial rows: <strong id="link-queue">0</strong>. Record both fixed and adaptive sessions with matching conditions and independent logs. Exported CSV remains a user-reported claim, not verified data.</p>
+          <p class="link-footnote">No wireless power is generated by this page. Serial is input-only; reading telemetry does not certify power hardware, safe operation or causality. <a href="https://github.com/MichaelWave369/PoWE/blob/main/docs/BENCHLINK_PROTOCOL.md" target="_blank" rel="noopener noreferrer">Protocol and safety guide ↗</a></p>
+        </div>
+      </div>
+    </section>
+
     <footer><span>PoWE / POWER OVER WIRELESS EXCHANGE</span><span>OPEN RESEARCH · LOCAL FIRST · NO REAL POWER TRANSMISSION</span></footer>
   </main>
   <script type="module" src="./src/app.js"></script>
   <script type="module" src="./src/measurements-ui.js"></script>
   <script type="module" src="./src/benchkit-ui.js"></script>
+  <script type="module" src="./src/benchlink-ui.js"></script>
 </body>
 </html>

@@ -82,12 +82,22 @@ The output is arithmetic mean receiver DC watts, not joules or whole-system effi
 - No transmitter, laser, camera or charging hardware is controlled. No laboratory experiment has yet been performed by PoWE.
 - [Optical BenchKit schema, test protocol and cautions](docs/OPTICAL_BENCHKIT.md).
 
+## Rung 4: BenchLink read-only telemetry
+
+BenchLink can ingest a local NDJSON transcript or read it with a user-approved Web Serial session (supported secure-context browsers only). It uses **two independent electrical reading channels**, reports separate source and receiver joules with bounded trapezoidal integration, flags gaps/faults/unknown safety, and rejects incomplete sessions from BenchKit export.
+
+- Save a local **unverified observation receipt** as JSON with all normalized samples and exclusion reasons.
+- Enter task counts, trial identity and independently estimated measurement uncertainties and queue eligible records to export in the existing Rung 3 Optical BenchKit CSV format.
+- Load a clearly labeled synthetic fixture; no real instrument output has been tested or authenticated.
+- Web Serial is strictly **read-only** from the browser; no device commands, physical shutoff or energy output are included.
+- [BenchLink protocol and hardware-safety boundaries](docs/BENCHLINK_PROTOCOL.md).
+
 ## Roadmap
 
 1. **Rung 1 (this branch):** simulator, explicit assumptions, browser dashboard, pairing invitation schema, tests.
 2. **Rung 2 (this branch):** local CSV measurement importer with units, calibration metadata and measured/simulated separation.
 3. **Rung 3 (this branch):** optical trial planner, strictly paired analysis and dry-run protocols. Real hardware measurements remain future work.
-4. **Rung 4:** bounded LightBridge / NBG PocketMesh transport adapters with authenticated pairing and power-aware orchestration.
+4. **Rung 4 (this branch):** read-only instrument telemetry adapter and BenchKit trial export. Actual device and LightBridge adapter validation remain future work.
 5. **Rung 5:** reproducible controlled comparison against uncoordinated network scheduling.
 
 Original PoWE code is released under the [MIT license](LICENSE). Hardware safety and legal compliance remain the responsibility of anyone performing physical experiments.
