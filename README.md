@@ -103,12 +103,26 @@ BenchLink can ingest a local NDJSON transcript or read it with a user-approved W
 
 **No physical device, transmitter, meter, optical-power link or safety interlock was operated or verified.** The synthetic harness cannot establish real wireless energy-transfer performance.
 
+## Rung 6: MK1 bench design and structural preflight
+
+Rung 6 proposes a **5 V DC, <=0.5 A commercial diffuse LED source**, an independently loaded commercial photovoltaic receiver, two independently calibrated electrical measurement channels, and an isolated read-only BenchLink telemetry adapter. It adds an interactive design checker in the browser with downloadable versioned manifest, candidate BOM category template, and **unperformed** verification matrix.
+
+- Conservatively bound the hypothetical DC source supply and current limits (default design 5 V × 0.4 A = **2 W supply-side ceiling**, not measured wattage).
+- Check plan constraints for geometry, sensor resolution target, timestamp synchronization, enclosure, independent overcurrent protection, optical boundaries and fail-safe data collection.
+- Require separate source and receiver electrical instrument selection and subsequent independent calibration.
+- Preserve unresolved hardware and electrical-inspection blockers even when all *software design constraints* pass.
+- See [the MK1 source/receiver architecture and metrology notes](docs/HARDWARE_MK1.md) and [candidate components and source references](docs/PART_CANDIDATES.md).
+
+**No parts have been purchased or assembled, no electrical apparatus verified, no real optical link measured.** These outputs are planning artifacts, not instructions to energize equipment.
+
 ## Roadmap
 
 1. **Rung 1 (this branch):** simulator, explicit assumptions, browser dashboard, pairing invitation schema, tests.
 2. **Rung 2 (this branch):** local CSV measurement importer with units, calibration metadata and measured/simulated separation.
 3. **Rung 3:** optical trial planner, strictly paired analysis and dry-run protocols. Real hardware measurements remain future work.
 4. **Rung 4:** read-only instrument telemetry adapter and BenchKit trial export. Actual device and LightBridge adapter validation remain future work.
-5. **Rung 5 (this branch):** synthetic commissioning, conformance harness and operator readiness guidance. Real controlled comparisons are still future work.
+5. **Rung 5:** synthetic commissioning, conformance harness and operator readiness guidance. Real controlled comparisons are still future work.
+
+6. **Rung 6 (this branch):** physical prototype design, structural limits and evidence-gated readiness planning. Physical qualification is still unperformed.
 
 Original PoWE code is released under the [MIT license](LICENSE). Hardware safety and legal compliance remain the responsibility of anyone performing physical experiments.
