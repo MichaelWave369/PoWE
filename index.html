@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080f19" />
+  <meta name="description" content="PoWE Energy Lab: an open-source, local-first research simulator for wireless energy and data coordination." />
+  <title>PoWE | Energy Lab</title>
+  <link rel="stylesheet" href="./src/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-icon">ϕ</span><span><strong>PoWE</strong><small>PHI369 LABS / ENERGY LAB</small></span></div>
+      <nav><a href="https://github.com/MichaelWave369/PoWE" rel="noopener noreferrer" target="_blank">SOURCE CODE ↗</a><span class="state-pill">SIMULATION ONLY</span></nav>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">RUNG 01 / MEASURABLE SYSTEMS</p>
+      <h1>Coordinate the signal.<br/><em>Account for the energy.</em></h1>
+      <p>Explore estimated receiver-side energy budgets across radio, optical, and short-range inductive links. Every value on this page is modeled, never measured hardware output.</p>
+      <div class="hero-metrics">
+        <div><small>SIMULATED ELAPSED</small><strong id="elapsed">0 s</strong></div>
+        <div><small>ENERGY COLLECTED</small><strong id="harvested">0 mJ</strong></div>
+        <div><small>TELEMETRY DELIVERED</small><strong id="pulses">0 pulses</strong></div>
+      </div>
+    </section>
+
+    <section class="layout">
+      <aside class="panel controls">
+        <div class="section-title"><span>01 / CONTROL SURFACE</span><span>HYPOTHETICAL</span></div>
+        <p class="explain">Change receiver separation to see why coordination does not replace physics.</p>
+        <label for="rf-distance">RF separation <output id="rf-distance-value">3.0 m</output></label>
+        <input id="rf-distance" type="range" min="0.5" max="15" step="0.5" value="3" />
+        <label for="optical-distance">Optical separation <output id="optical-distance-value">1.5 m</output></label>
+        <input id="optical-distance" type="range" min="0.5" max="5" step="0.1" value="1.5" />
+        <label for="near-distance">Near-field separation <output id="near-distance-value">2.0 cm</output></label>
+        <input id="near-distance" type="range" min="0" max="20" step="0.5" value="2" />
+        <div class="assumptions">
+          <span>RF EIRP <b>100 mW</b></span><span>Optical electric input <b>1 W</b></span><span>Near-field input <b>0.5 W</b></span>
+        </div>
+        <div class="button-stack">
+          <button id="run-60" class="primary">SIMULATE 60 SECONDS</button>
+          <div class="button-row"><button id="live">START LIVE</button><button id="reset">RESET</button></div>
+          <button id="csv">EXPORT SIMULATION CSV</button>
+        </div>
+        <p class="caution">The near-field model is an illustrative coupling proxy, not a coil design. No hardware is controlled or energized.</p>
+      </aside>
+
+      <section class="network" aria-label="Energy receivers">
+        <div class="section-title"><span>02 / RECEIVER CONSTELLATION</span><span>THREE CHANNELS</span></div>
+        <div id="nodes" class="node-grid"></div>
+        <div class="panel ledger">
+          <div class="section-title"><span>RECEIVER-SIDE LEDGER</span><span>JOULES</span></div>
+          <div class="ledger-columns"><div><small>TOTAL CONSUMED</small><b id="consumed">0 mJ</b></div><div><small>STORAGE OVERFLOW</small><b id="spilled">0 mJ</b></div><div><small>DEFERRED PULSES</small><b id="deferred">0</b></div></div>
+          <p>Initial storage + harvested energy = current storage + consumption + overflow. This does not measure transmitter efficiency or propagation safety.</p>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel pairing">
+      <div class="section-title"><span>03 / LIGHTBRIDGE HANDSHAKE</span><span>LOCAL / UNAUTHENTICATED</span></div>
+      <div class="pair-layout">
+        <div>
+          <h2>QR-ready invitations</h2>
+          <p>Generate a short-lived JSON pairing payload suitable for encoding in a QR symbol. A valid invitation is <strong>not</strong> proof of identity or consent.</p>
+          <button id="generate">GENERATE INVITATION</button>
+          <button id="copy">COPY INVITATION</button>
+          <label for="out-invite" class="text-label">Generated payload</label>
+          <textarea id="out-invite" rows="5" readonly placeholder="Invitation will appear here"></textarea>
+        </div>
+        <div>
+          <h2>Verify payload structure</h2>
+          <p>Paste a payload or scan an existing QR code using a supported browser. Camera scanning requires HTTPS or localhost and browser permission.</p>
+          <label for="in-invite" class="text-label">Incoming payload</label>
+          <textarea id="in-invite" rows="5" placeholder="Paste invitation JSON"></textarea>
+          <div class="button-row"><button id="verify">CHECK INVITATION</button><button id="scan">SCAN QR</button><button id="stop-scan">STOP CAMERA</button></div>
+          <video id="camera" playsinline muted hidden aria-label="QR code camera preview"></video>
+          <p id="pair-status" class="status" role="status" aria-live="polite">No invitation verified.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer><span>PoWE / POWER OVER WIRELESS EXCHANGE</span><span>OPEN RESEARCH · LOCAL FIRST · NO REAL POWER TRANSMISSION</span></footer>
+  </main>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>

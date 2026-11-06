@@ -1,9 +1,71 @@
-# PoWE
+# PoWE — Power over Wireless Exchange
 
-**Power over Wireless Exchange**
+**Coherent coordination of wireless energy and information.**
 
-PoWE is an open-source research playground for coordinating wireless energy, optical data exchange, and power-aware edge devices. It explores ideas inspired by resonance, RF harvesting, photovoltaic links, near-field transfer, and the existing [LightBridge](https://github.com/MichaelWave369/LightBridge) project.
+[Launch the Energy Lab locally](#run-the-energy-lab) · [Architecture](docs/ARCHITECTURE.md) · [Measurement plan](docs/MEASUREMENT_PLAN.md) · [Safety](docs/SAFETY.md) · [LightBridge](https://github.com/MichaelWave369/LightBridge)
 
-> **Research-stage software only.** No claim of remotely powering standard PoE equipment, validated RF hardware, regulatory compliance, or measured energy transfer is made. Simulated estimates are not experimental results.
+> **Status: Rung 1, experimental software.** Everything in the Energy Lab is a **simulation**. No real RF transmitter, optical power link, inductive charger, or physical measurement is connected. The model does not demonstrate standard PoE over air.
 
-The initial interactive simulator, documentation, and tests are being developed on a feature branch.
+## What PoWE means
+
+PoWE is a modular investigation of *energy-aware networking*. It grew from the question, “Could power follow wireless Ethernet?” Rather than claim unlimited wireless power, we want to coordinate **energy availability, information exchange, timing, and verified measurements**.
+
+PoWE explores three different physical channels:
+
+- **RF harvesting:** a Friis free-space model for a far-field 2.4 GHz receiver followed by an assumed rectifier efficiency.
+- **Optical harvesting:** a simple LED electrical-input → optical-output → photovoltaic receiver budget. An ordinary QR camera does **not** power the receiver.
+- **Near-field transfer:** an explicitly illustrative short-range coupling proxy, **not** a validated resonant coil model.
+
+Separately, **LightBridge** is the proposed offline data / pairing transport. QR payloads can *describe* a link, but scanning a QR symbol does not deliver useful electrical power.
+
+## Rung 1: browser Energy Lab
+
+- Run or pause a deterministic three-node simulator.
+- Adjust separation of each modeled channel and examine estimated receiver DC power.
+- Follow stored energy, energy consumed by idle and telemetry loads, storage overflow, skipped transmissions and brownout time.
+- Export a CSV with an explicit simulated-data marker.
+- Generate short-lived QR-ready pairing invitation **JSON** and validate its structure / expiration.
+- Optionally scan an existing QR invitation using a browser with BarcodeDetector support. The software does **not** render its own QR code yet.
+- No accounts, tracking, network calls, build toolchain or external runtime dependencies.
+
+### Run the Energy Lab
+
+Because this page uses ES modules, serve it over localhost rather than opening the HTML with a file URL:
+
+~~~sh
+python -m http.server 8000
+# Open http://localhost:8000/
+~~~
+
+To run tests, install Node.js 20+:
+
+~~~sh
+npm test
+npm run check
+~~~
+
+There are no third-party npm dependencies. You can also host the static files on GitHub Pages after enabling Pages for this repository.
+
+## Why coherence matters
+
+PoWE treats coherence as an engineering coordination principle: aligned interfaces, negotiated schedules, resonance *when physically supported*, and transparent energy accounting. **Coherence cannot create energy or bypass conservation laws.** Neither data-link synchronization nor QR scanning changes Friis loss or inductive coupling.
+
+A useful future research question is: **does a coordinated heterogeneous energy-and-data network achieve more useful tasks per joule than a comparable uncoordinated system under the same hardware and conditions?** That requires real hardware measurements and control groups.
+
+## Project boundaries
+
+- **Not a substitute for IEEE 802.3 PoE.** The name references the original idea, not compliance or watts delivered through Wi-Fi.
+- **No production pairing security.** Valid JSON and TTL do not authenticate a device. Before integration, require cryptographic identity checks, user approval, replay protection and real-world transport validation.
+- **No regulatory or exposure approval.** Do not treat simulation wattages as permission to transmit.
+- **No performance claim for LightBridge.** Its recovery prototypes are not validated for this application.
+- **No hardware-control code in Rung 1.**
+
+## Roadmap
+
+1. **Rung 1 (this branch):** simulator, explicit assumptions, browser dashboard, pairing invitation schema, tests.
+2. **Rung 2:** laboratory measurement importer with units, calibration records and measured/simulated separation.
+3. **Rung 3:** approved low-power photovoltaic and certified near-field hardware experiments, instrumented data collection.
+4. **Rung 4:** bounded LightBridge / NBG PocketMesh transport adapters with authenticated pairing and power-aware orchestration.
+5. **Rung 5:** reproducible controlled comparison against uncoordinated network scheduling.
+
+Original PoWE code is released under the [MIT license](LICENSE). Hardware safety and legal compliance remain the responsibility of anyone performing physical experiments.
