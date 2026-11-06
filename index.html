@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="./src/benchlink.css" />
   <link rel="stylesheet" href="./src/commissioning.css" />
   <link rel="stylesheet" href="./src/prototype.css" />
+  <link rel="stylesheet" href="./src/optical-controls.css" />
 </head>
 <body>
   <main class="shell">
@@ -305,6 +306,58 @@
       </div>
     </section>
 
+
+    <section id="optical-controls" class="panel optical-controls" aria-labelledby="controls-title">
+      <div class="section-title"><span>09 / OPTICAL CONTROL EXPERIMENT</span><span>RUNG 07 · UNVERIFIED DATA</span></div>
+      <h2 id="controls-title">Three readings. One honest comparison.</h2>
+      <p>Import three independently captured BenchLink NDJSON sessions in sequence: <strong>LED off → LED on → LED off</strong>. We interpolate an electrical PV-load background estimate using the two LED-off controls, then report the signed light-associated electrical difference. The files self-report LED state, instrument identities and measurements: none of that is physically authenticated.</p>
+      <div class="controls-columns">
+        <div class="controls-pane">
+          <h3>A / Three-session import</h3>
+          <label class="controls-upload" for="controls-before">1 / LED OFF before
+            <input id="controls-before" type="file" accept=".ndjson,.jsonl,text/plain,application/x-ndjson"/>
+            <span id="controls-before-name" class="controls-file-name">No file selected</span>
+          </label>
+          <label class="controls-upload" for="controls-on">2 / LED ON
+            <input id="controls-on" type="file" accept=".ndjson,.jsonl,text/plain,application/x-ndjson"/>
+            <span id="controls-on-name" class="controls-file-name">No file selected</span>
+          </label>
+          <label class="controls-upload" for="controls-after">3 / LED OFF after
+            <input id="controls-after" type="file" accept=".ndjson,.jsonl,text/plain,application/x-ndjson"/>
+            <span id="controls-after-name" class="controls-file-name">No file selected</span>
+          </label>
+          <div class="controls-fields">
+            <label for="controls-geometry">Geometry ID<input id="controls-geometry" value="mk1-geometry" maxlength="64"/></label>
+            <label for="controls-load">Receiver load ID<input id="controls-load" value="mk1-load" maxlength="64"/></label>
+            <label for="controls-distance">Separation (m)<input id="controls-distance" type="number" value="0.5" min=".05" max="5" step=".05"/></label>
+            <label for="controls-u-before">LED OFF before uncertainty (receiver J)<input id="controls-u-before" type="number" placeholder="Independent estimate" min="0" step="any"/></label>
+            <label for="controls-u-on">LED ON uncertainty (receiver J)<input id="controls-u-on" type="number" placeholder="Independent estimate" min="0" step="any"/></label>
+            <label for="controls-u-after">LED OFF after uncertainty (receiver J)<input id="controls-u-after" type="number" placeholder="Independent estimate" min="0" step="any"/></label>
+            <label for="controls-u-source">LED ON source uncertainty (J)<input id="controls-u-source" type="number" placeholder="Independent estimate" min="0" step="any"/></label>
+          </div>
+          <div class="controls-actions">
+            <button id="controls-demo">LOAD SYNTHETIC CONTROLS</button>
+            <button id="controls-run" class="primary">ANALYZE THREE SESSIONS</button>
+            <button id="controls-clear">CLEAR</button>
+          </div>
+        </div>
+        <div class="controls-pane">
+          <h3>B / Analysis and provenance</h3>
+          <div class="controls-summary">
+            <div><small>RESULT</small><strong id="controls-signal">NOT ANALYZED</strong></div>
+            <div><small>CLAIMED SOURCE</small><strong id="controls-provenance">NO INPUT</strong></div>
+          </div>
+          <div id="controls-metrics" class="controls-metrics" aria-label="Optical control comparison metrics"></div>
+          <p id="controls-warnings" class="controls-notice">No observations analyzed.</p>
+          <div class="controls-actions">
+            <button id="controls-receipt" disabled>DOWNLOAD UNVERIFIED HASHED RECEIPT</button>
+          </div>
+          <p id="controls-status" class="controls-status" role="status" aria-live="polite">No control records loaded.</p>
+          <p class="controls-warning">A positive PV electrical delta is NOT measured optical power, a certified LED-to-PV efficiency, proof of wireless Ethernet power, or proof that PoWE synchronization improves performance. Significant baseline drift requires repeat controls. The user-supplied uncertainty is descriptive, not independently validated. <a target="_blank" rel="noopener noreferrer" href="https://github.com/MichaelWave369/PoWE/blob/main/docs/OPTICAL_CONTROLS.md">Rung 7 protocol ↗</a></p>
+        </div>
+      </div>
+    </section>
+
     <footer><span>PoWE / POWER OVER WIRELESS EXCHANGE</span><span>OPEN RESEARCH · LOCAL FIRST · NO REAL POWER TRANSMISSION</span></footer>
   </main>
   <script type="module" src="./src/app.js"></script>
@@ -313,5 +366,6 @@
   <script type="module" src="./src/benchlink-ui.js"></script>
   <script type="module" src="./src/commissioning-ui.js"></script>
   <script type="module" src="./src/prototype-ui.js"></script>
+  <script type="module" src="./src/optical-controls-ui.js"></script>
 </body>
 </html>

@@ -1,0 +1,10 @@
+{"protocol":"powe.benchlink.v1","type":"header","session_id":"demo-off-after","kind":"synthetic","apparatus_id":"demo-mk1","timestamp_utc":"2026-10-10T12:00:40Z"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"demo-off-after","sequence":0,"elapsed_ms":0,"source_v":5,"source_a":0,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"demo-off-after","sequence":1,"elapsed_ms":1000,"source_v":5,"source_a":0,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"demo-off-after","sequence":2,"elapsed_ms":2000,"source_v":5,"source_a":0,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"demo-off-after","sequence":3,"elapsed_ms":3000,"source_v":5,"source_a":0,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"demo-off-after","sequence":4,"elapsed_ms":4000,"source_v":5,"source_a":0,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"demo-off-after","sequence":5,"elapsed_ms":5000,"source_v":5,"source_a":0,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"demo-off-after","sequence":6,"elapsed_ms":6000,"source_v":5,"source_a":0,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"sample","session_id":"demo-off-after","sequence":7,"elapsed_ms":7000,"source_v":5,"source_a":0,"receiver_v":1.2,"receiver_a":0.001,"safety_state":"not_applicable"}
+{"protocol":"powe.benchlink.v1","type":"end","session_id":"demo-off-after","samples":8}
