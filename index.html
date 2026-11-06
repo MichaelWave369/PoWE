@@ -8,6 +8,7 @@
   <title>PoWE | Energy Lab</title>
   <link rel="stylesheet" href="./src/styles.css" />
   <link rel="stylesheet" href="./src/measurements.css" />
+  <link rel="stylesheet" href="./src/benchkit.css" />
 </head>
 <body>
   <main class="shell">
@@ -119,9 +120,51 @@
       <p class="measure-warning measure-footnote">Safety flags and calibration fields are claims from the imported file, not a certification. Arithmetic means of watts are not energy; no transmitter-to-receiver efficiency or matched-condition comparison is claimed. <a href="https://github.com/MichaelWave369/PoWE/blob/main/docs/MEASUREMENT_SCHEMA.md" rel="noopener noreferrer" target="_blank">Read the CSV specification ↗</a></p>
     </section>
 
+    <section id="optical-benchkit" class="panel benchkit" aria-labelledby="bench-title">
+      <div class="section-title"><span>05 / OPTICAL BENCHKIT</span><span>RUNG 03 · NO HARDWARE CONTROL</span></div>
+      <h2 id="bench-title">Measure the orchestra, not just the melody.</h2>
+      <p>Create a reproducible, randomly ordered optical-power experiment plan. Import paired, explicitly categorized trial records. A valid file is not proof of a real measurement.</p>
+      <div class="benchkit-grid">
+        <div class="benchkit-pane">
+          <h3>A / Plan the experiment</h3>
+          <p>Fixed-window versus adaptive-window scheduling. Actual observations must be collected independently.</p>
+          <div class="bench-fields">
+            <label>Project ID<input id="bench-project" value="powe-optical" maxlength="64" /></label>
+            <label>Repeatable seed<input id="bench-seed" type="number" value="369" min="1" max="4294967295" /></label>
+            <label>Paired blocks<input id="bench-blocks" type="number" value="6" min="1" max="40" /></label>
+            <label>Distance (meters)<input id="bench-distance" type="number" value="1" min="0.05" max="5" step="0.05" /></label>
+            <label>Duration (seconds)<input id="bench-duration" type="number" value="30" min="5" max="3600" /></label>
+          </div>
+          <div class="bench-actions">
+            <button id="bench-create" class="primary">CREATE PLAN</button>
+            <button id="bench-json" disabled>SAVE PLAN JSON</button>
+            <button id="bench-template" disabled>EMPTY RESULTS CSV</button>
+          </div>
+          <pre id="bench-plan" aria-label="Generated experimental trial plan">No plan generated.</pre>
+        </div>
+        <div class="benchkit-pane">
+          <h3>B / Analyze reported observations</h3>
+          <p>Use completed tasks and source electrical energy (joules) from matching trials. The demo is invented synthetic data, not instrument readings.</p>
+          <label for="bench-csv" class="bench-file-label">Import optical trial CSV (max 512 KiB)<input id="bench-csv" type="file" accept=".csv,text/csv" /></label>
+          <div class="bench-actions"><button id="bench-demo">LOAD SYNTHETIC DEMO</button><button id="bench-clear">CLEAR DATA</button></div>
+          <div class="bench-metrics">
+            <div><small>RECORDS</small><strong id="bench-count">0</strong></div>
+            <div><small>REPORTED MEASURED</small><strong id="bench-measured-count">0</strong></div>
+            <div><small>SIMULATED</small><strong id="bench-synthetic-count">0</strong></div>
+            <div><small>EXCLUSIONS</small><strong id="bench-exclusions">0</strong></div>
+          </div>
+          <p id="bench-status" class="bench-status" role="status" aria-live="polite">No trial data loaded.</p>
+        </div>
+      </div>
+      <div id="bench-results" class="bench-results" aria-label="Separate measured and simulated trial comparisons"></div>
+      <div id="bench-excluded" class="bench-excluded" aria-label="Excluded pair report"></div>
+      <p class="bench-alert">Reported measurements are not instrument-authenticated. Trial exclusion is explicit. Ratios describe uploaded data only, not a causal or statistically validated energy-efficiency improvement. <a href="https://github.com/MichaelWave369/PoWE/blob/main/docs/OPTICAL_BENCHKIT.md" target="_blank" rel="noopener noreferrer">BenchKit protocol ↗</a></p>
+    </section>
+
     <footer><span>PoWE / POWER OVER WIRELESS EXCHANGE</span><span>OPEN RESEARCH · LOCAL FIRST · NO REAL POWER TRANSMISSION</span></footer>
   </main>
   <script type="module" src="./src/app.js"></script>
   <script type="module" src="./src/measurements-ui.js"></script>
+  <script type="module" src="./src/benchkit-ui.js"></script>
 </body>
 </html>
