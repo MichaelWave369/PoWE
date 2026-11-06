@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./src/benchkit.css" />
   <link rel="stylesheet" href="./src/benchlink.css" />
   <link rel="stylesheet" href="./src/commissioning.css" />
+  <link rel="stylesheet" href="./src/prototype.css" />
 </head>
 <body>
   <main class="shell">
@@ -256,6 +257,54 @@
       </div>
     </section>
 
+    <section id="hardware-mk1" class="panel mk1-lab" aria-labelledby="mk1-title">
+      <div class="section-title"><span>08 / MK1 PHYSICAL DESIGN LAB</span><span>RUNG 06 · UNBUILT</span></div>
+      <h2 id="mk1-title">Design the experiment, then earn the evidence.</h2>
+      <p>Plan a low-voltage LED-to-photovoltaic bench with physically separate source and receiver energy measurements. These inputs are proposed design requirements only. The software cannot inspect a circuit, validate calibration, approve safety or deliver electrical energy.</p>
+      <div class="mk1-columns">
+        <div class="mk1-card">
+          <h3>A / Select planning constraints</h3>
+          <p class="mk1-subtitle">Conservative first-pass values; all real component limits require independent review.</p>
+          <div class="mk1-fields">
+            <label for="mk1-v">LED DC supply (V)<input id="mk1-v" type="number" min=".1" max="5" step=".1" value="5"/></label>
+            <label for="mk1-a">Supply operating current limit (A)<input id="mk1-a" type="number" min=".01" max=".5" step=".01" value=".4"/></label>
+            <label for="mk1-pv-voc">PV candidate sunlight open-circuit V<input id="mk1-pv-voc" type="number" min=".01" max="12" step=".1" value="6.1"/></label>
+            <label for="mk1-target">Hypothetical receiver current floor (µA)<input id="mk1-target" type="number" min=".01" step=".1" value="10"/></label>
+            <label for="mk1-resolution">Required receiver instrument resolution (µA)<input id="mk1-resolution" type="number" min=".001" step=".1" value="1"/></label>
+            <label for="mk1-sample">Planned sample interval (ms)<input id="mk1-sample" type="number" min="50" max="1000" step="50" value="500"/></label>
+            <label for="mk1-skew">Target timing skew (ms)<input id="mk1-skew" type="number" min="0" max="100" step="5" value="50"/></label>
+            <label for="mk1-min-distance">Minimum geometry distance (m)<input id="mk1-min-distance" type="number" min=".05" max="5" step=".05" value=".1"/></label>
+            <label for="mk1-max-distance">Maximum geometry distance (m)<input id="mk1-max-distance" type="number" min=".05" max="5" step=".05" value="1"/></label>
+            <label for="mk1-source-meter">Proposed source meter ID<input id="mk1-source-meter" maxlength="64" value="UNSELECTED"/></label>
+            <label for="mk1-receiver-meter">Proposed receiver meter ID<input id="mk1-receiver-meter" maxlength="64" value="UNSELECTED"/></label>
+          </div>
+          <div class="mk1-actions">
+            <button id="mk1-reset">RESTORE DESIGN</button>
+            <button id="mk1-manifest" class="primary">EXPORT DRAFT MANIFEST</button>
+            <button id="mk1-bom">EXPORT BOM CATEGORIES</button>
+            <button id="mk1-acceptance">EXPORT UNRUN TEST PLAN</button>
+          </div>
+        </div>
+        <div class="mk1-card">
+          <h3>B / Design preflight</h3>
+          <div class="mk1-metrics">
+            <div><small>STRUCTURAL CHECK</small><strong id="mk1-design-status">NOT RUN</strong></div>
+            <div><small>PLANNED MAX DC INPUT</small><strong id="mk1-source-power">N/A</strong></div>
+            <div><small>REAL HARDWARE</small><strong id="mk1-hardware-status">NOT VALIDATED</strong></div>
+            <div><small>POWER AUTHORIZATION</small><strong id="mk1-authorization">NOT AUTHORIZED</strong></div>
+            <div><small>STRUCTURAL ERRORS</small><strong id="mk1-error-count">0</strong></div>
+            <div><small>PHYSICAL OPEN ITEMS</small><strong id="mk1-pending-count">0</strong></div>
+          </div>
+          <p id="mk1-explain" class="mk1-explain">The design checker has not run.</p>
+          <p class="mk1-subtitle">PLANNING ERRORS</p>
+          <div id="mk1-errors" class="mk1-issues" aria-label="Design validation errors"></div>
+          <p class="mk1-subtitle">PENDING PHYSICAL VERIFICATION</p>
+          <div id="mk1-pending" class="mk1-issues" aria-label="Unverified hardware requirements"></div>
+          <p class="mk1-warning">PV sunlight ratings are not measured indoor output. LED DC input is not wall-plug power. Passing these design constraints does not authorize construction, energizing, optical exposure, metrology claims or safety certification. <a href="https://github.com/MichaelWave369/PoWE/blob/main/docs/HARDWARE_MK1.md" target="_blank" rel="noopener noreferrer">MK1 architecture and boundaries ↗</a></p>
+        </div>
+      </div>
+    </section>
+
     <footer><span>PoWE / POWER OVER WIRELESS EXCHANGE</span><span>OPEN RESEARCH · LOCAL FIRST · NO REAL POWER TRANSMISSION</span></footer>
   </main>
   <script type="module" src="./src/app.js"></script>
@@ -263,5 +312,6 @@
   <script type="module" src="./src/benchkit-ui.js"></script>
   <script type="module" src="./src/benchlink-ui.js"></script>
   <script type="module" src="./src/commissioning-ui.js"></script>
+  <script type="module" src="./src/prototype-ui.js"></script>
 </body>
 </html>
