@@ -7,7 +7,8 @@
   "scripts": {
     "test": "node --test",
     "check": "node --check src/model.js && node --check src/invitation.js && node --check src/app.js && node --check src/measurements.js && node --check src/measurements-ui.js && node --check src/benchkit.js && node --check src/benchkit-ui.js && node --check src/benchlink.js && node --check src/benchlink-ui.js && node --check src/commissioning.js && node --check src/commissioning-ui.js && node --check scripts/qualify.mjs && node --check src/prototype.js && node --check src/prototype-ui.js && node --check src/optical-controls.js && node --check src/optical-controls-ui.js",
-    "qualify": "node scripts/qualify.mjs"
+    "qualify": "node scripts/qualify.mjs",
+    "optical:dry-run": "node scripts/optical-dry-run.mjs"
   },
   "engines": {
     "node": ">=20"
