@@ -7,6 +7,7 @@
   <meta name="description" content="PoWE Energy Lab: an open-source, local-first research simulator for wireless energy and data coordination." />
   <title>PoWE | Energy Lab</title>
   <link rel="stylesheet" href="./src/styles.css" />
+  <link rel="stylesheet" href="./src/measurements.css" />
 </head>
 <body>
   <main class="shell">
@@ -81,8 +82,46 @@
       </div>
     </section>
 
+
+    <section id="measurement-lab" class="panel measurement-panel" aria-labelledby="measure-title">
+      <div class="section-title"><span>04 / MEASUREMENT LAB</span><span>RUNG 02 · LOCAL IMPORT</span></div>
+      <h2 id="measure-title">Evidence before claims.</h2>
+      <p class="measure-lead">Import receiver-side watt readings from a local CSV. Recorded measurements and synthetic data occupy different groups; a valid file never proves that the instrument, calibration or physical experiment was genuine.</p>
+      <div class="measure-actions">
+        <label class="measure-file-picker" for="measure-file">LOCAL CSV <input id="measure-file" type="file" accept=".csv,text/csv" aria-label="Import local measurement CSV" /></label>
+        <button id="measure-demo">LOAD SYNTHETIC DEMO</button>
+        <button id="measure-clear">CLEAR DATA</button>
+      </div>
+      <p id="measure-status" class="measure-status" role="status" aria-live="polite">No data loaded. No files are sent to a server.</p>
+      <div class="measure-metrics">
+        <div><small>TOTAL RECORDS</small><strong id="measure-total">0</strong></div>
+        <div><small>REPORTED MEASURED</small><strong id="measure-reported">0</strong></div>
+        <div><small>SIMULATED</small><strong id="measure-simulated">0</strong></div>
+      </div>
+      <div id="measure-summary" class="measure-summary" aria-label="Separate channel and provenance summaries"></div>
+      <div class="measure-table-top">
+        <h3>Imported records</h3>
+        <label for="measure-filter">Show
+          <select id="measure-filter">
+            <option value="all">All provenance categories</option>
+            <option value="measured">Reported measured only</option>
+            <option value="simulated">Simulated only</option>
+          </select>
+        </label>
+      </div>
+      <div class="measure-table-scroller">
+        <table>
+          <thead><tr><th>RECORD ID</th><th>PROVENANCE</th><th>CHANNEL</th><th>RECEIVER DC</th><th>DISTANCE</th><th>UNCERTAINTY</th><th>SAFETY FLAG</th></tr></thead>
+          <tbody id="measure-rows"></tbody>
+        </table>
+      </div>
+      <p id="measure-row-count" class="measure-row-count">Showing 0 readings.</p>
+      <p class="measure-warning measure-footnote">Safety flags and calibration fields are claims from the imported file, not a certification. Arithmetic means of watts are not energy; no transmitter-to-receiver efficiency or matched-condition comparison is claimed. <a href="https://github.com/MichaelWave369/PoWE/blob/main/docs/MEASUREMENT_SCHEMA.md" rel="noopener noreferrer" target="_blank">Read the CSV specification ↗</a></p>
+    </section>
+
     <footer><span>PoWE / POWER OVER WIRELESS EXCHANGE</span><span>OPEN RESEARCH · LOCAL FIRST · NO REAL POWER TRANSMISSION</span></footer>
   </main>
   <script type="module" src="./src/app.js"></script>
+  <script type="module" src="./src/measurements-ui.js"></script>
 </body>
 </html>
