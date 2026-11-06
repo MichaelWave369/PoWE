@@ -1,0 +1,48 @@
+{
+  "schema": "powe-bench-mk1-design-v1",
+  "revision": "MK1-R6",
+  "state": "UNBUILT_DESIGN",
+  "powerBoundary": "measured_usb_dc_input_to_led",
+  "source": {
+    "topology": "commercial_diffuse_led_dc",
+    "supplyVoltageV": 5,
+    "supplyCurrentLimitA": 0.4,
+    "hardwiredManualDisconnectRequired": true,
+    "independentOvercurrentProtectionRequired": true,
+    "supplyOvercurrentTripA": 0.5,
+    "laserProhibited": true,
+    "exposedMainsProhibited": true
+  },
+  "receiver": {
+    "topology": "commercial_photovoltaic",
+    "manufacturerRatingCondition": "sunlight_not_indoor_led",
+    "candidateVocV": 6.1,
+    "candidateRatedPowerW": 0.6,
+    "independentOutputLoadRequired": true,
+    "receiverMeasurementIsolatedRequired": true
+  },
+  "metrology": {
+    "sourceReference": "LED_USB_DC_INPUT",
+    "receiverReference": "PV_DC_LOAD",
+    "sourceInstrument": "UNSELECTED",
+    "receiverInstrument": "UNSELECTED",
+    "instrumentsIndependentlyCalibrated": false,
+    "targetReceiverCurrentUa": 10,
+    "requiredReceiverCurrentResolutionUa": 1,
+    "samplePeriodMs": 500,
+    "maxClockSkewMs": 50
+  },
+  "geometry": {
+    "minimumDistanceM": 0.1,
+    "maximumDistanceM": 1,
+    "enclosureRequired": true,
+    "ambientDarkRunRequired": true,
+    "rigidAlignmentRequired": true
+  },
+  "gateway": {
+    "requiredProtocol": "powe.benchlink.v1",
+    "dataOnlyIsolatedGatewayRequired": true,
+    "serialOpenCannotControlPowerRequired": true,
+    "verifiedOnHardware": false
+  }
+}
