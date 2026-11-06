@@ -49,7 +49,7 @@ test("simulated data cannot claim real instrument or hardware safety", () => {
 });
 test("duplicates, headers, limits and malformed CSV fail closed", () => {
   assert.throws(() => parse(csv(line(),line())), /Duplicate record_id/);
-  assert.throws(() => parse(csv(line()).replace("record_id,", "record_id,record_id,")), /Duplicate CSV header/);
+  assert.throws(() => parse(csv(line()).replace("record_id,timestamp_utc", "record_id,record_id")), /Duplicate CSV header/);
   assert.throws(() => parse("garbage"), /header/);
   assert.throws(() => parse("x".repeat(MAX_CSV_BYTES + 1)), /512/);
   assert.throws(() => parse(csv(line({notes:'"unfinished'}))), /Unclosed/);
