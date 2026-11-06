@@ -73,11 +73,20 @@ The browser page now has a separate **Measurement Lab** panel for importing CSV 
 
 The output is arithmetic mean receiver DC watts, not joules or whole-system efficiency. Calibrated device data and cryptographic provenance are future work.
 
+## Rung 3: Optical BenchKit
+
+- Plan and download randomized within-block fixed/adaptive experimental sequences; get an empty result CSV template.
+- Import self-reported optical trial data, with explicit distinction between reported measurements and simulated fixtures.
+- Only compare properly paired, matching setups; list unsafe, incomplete or mismatched trial pairs as exclusions.
+- Report completed tasks per input-source joule, rather than confusing receiver watts with system energy efficiency.
+- No transmitter, laser, camera or charging hardware is controlled. No laboratory experiment has yet been performed by PoWE.
+- [Optical BenchKit schema, test protocol and cautions](docs/OPTICAL_BENCHKIT.md).
+
 ## Roadmap
 
 1. **Rung 1 (this branch):** simulator, explicit assumptions, browser dashboard, pairing invitation schema, tests.
 2. **Rung 2 (this branch):** local CSV measurement importer with units, calibration metadata and measured/simulated separation.
-3. **Rung 3:** approved low-power photovoltaic and certified near-field hardware experiments, instrumented data collection.
+3. **Rung 3 (this branch):** optical trial planner, strictly paired analysis and dry-run protocols. Real hardware measurements remain future work.
 4. **Rung 4:** bounded LightBridge / NBG PocketMesh transport adapters with authenticated pairing and power-aware orchestration.
 5. **Rung 5:** reproducible controlled comparison against uncoordinated network scheduling.
 
