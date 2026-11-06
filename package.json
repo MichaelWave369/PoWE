@@ -6,8 +6,10 @@
   "description": "Local-first simulator for wireless energy budgets and coordination",
   "scripts": {
     "test": "node --test",
-    "check": "node --check src/model.js && node --check src/invitation.js && node --check src/app.js"
+    "check": "node --check src/model.js && node --check src/invitation.js && node --check src/app.js && node --check src/measurements.js && node --check src/measurements-ui.js"
   },
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "license": "MIT"
 }

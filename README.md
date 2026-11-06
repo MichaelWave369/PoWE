@@ -60,10 +60,23 @@ A useful future research question is: **does a coordinated heterogeneous energy-
 - **No performance claim for LightBridge.** Its recovery prototypes are not validated for this application.
 - **No hardware-control code in Rung 1.**
 
+
+## Rung 2: local Measurement Lab
+
+The browser page now has a separate **Measurement Lab** panel for importing CSV readings, grouped by channel and provenance. It validates instrument identifiers, timestamps, reported calibration dates, uncertainty and safety flags for rows labeled "measured", but does **not authenticate** any claim made by a file. Rows labeled "simulated" may not claim hardware calibration or safety status.
+
+- Local-only CSV import: 512 KiB maximum, 1000 data rows maximum, no server upload.
+- Independent views for **reported measured** and **simulated** values; no misleading combined power totals.
+- CSV syntax, date, numeric, duplicate-ID and provenance validation.
+- Synthetic demo with no alleged experimental measurements.
+- [CSV schema and interpretation guide](docs/MEASUREMENT_SCHEMA.md) and [explicit synthetic sample](examples/simulated-demo.csv).
+
+The output is arithmetic mean receiver DC watts, not joules or whole-system efficiency. Calibrated device data and cryptographic provenance are future work.
+
 ## Roadmap
 
 1. **Rung 1 (this branch):** simulator, explicit assumptions, browser dashboard, pairing invitation schema, tests.
-2. **Rung 2:** laboratory measurement importer with units, calibration records and measured/simulated separation.
+2. **Rung 2 (this branch):** local CSV measurement importer with units, calibration metadata and measured/simulated separation.
 3. **Rung 3:** approved low-power photovoltaic and certified near-field hardware experiments, instrumented data collection.
 4. **Rung 4:** bounded LightBridge / NBG PocketMesh transport adapters with authenticated pairing and power-aware orchestration.
 5. **Rung 5:** reproducible controlled comparison against uncoordinated network scheduling.

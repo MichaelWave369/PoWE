@@ -1,0 +1,4 @@
+record_id,timestamp_utc,kind,channel,apparatus_id,instrument_id,calibration_date,source_input_w,eirp_w,receiver_dc_w,separation_m,uncertainty_w,safety_state,notes
+sim-rf-001,2026-10-10T12:00:00Z,simulated,rf,,,,,0.1,0.00000038,3,,not_applicable,Demo only
+sim-light-001,2026-10-10T12:00:00Z,simulated,optical,,,,1,,0.0002,1.5,,not_applicable,Demo only
+sim-near-001,2026-10-10T12:00:00Z,simulated,near-field,,,,0.5,,0.27,0.02,,not_applicable,Demo only
