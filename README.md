@@ -115,6 +115,18 @@ Rung 6 proposes a **5 V DC, <=0.5 A commercial diffuse LED source**, an independ
 
 **No parts have been purchased or assembled, no electrical apparatus verified, no real optical link measured.** These outputs are planning artifacts, not instructions to energize equipment.
 
+## Rung 7: Optical controls and baseline subtraction
+
+Rung 7 adds a local **LED OFF-before → LED ON → LED OFF-after** analysis tool. It pairs three separate BenchLink NDJSON sessions, requires matching self-declared apparatus/metrology metadata, checks sequence/timing/gaps/faults, and estimates the background PV electrical load by interpolation between the two LED-off controls.
+
+- Display signed **light-associated PV DC electrical energy difference**, source DC input and reported uncertainty, with a baseline drift warning.
+- Keep imported sessions **self-reported and not independently verified**. An entirely invented fixture is provided solely to demonstrate the calculations.
+- Explicitly distinguish DC electrical input to the LED from AC wall-plug energy or physical optical energy delivered.
+- Download a local JSON receipt with SHA-256 hashes of the three exact input files and unverified derived observations.
+- [Read the LED-off/on/off control protocol and its limits](docs/OPTICAL_CONTROLS.md).
+
+**No real hardware observations have yet been taken or proven.** A positive computed delta does not prove transfer efficiency, authenticated instrument provenance or a PoWE networking benefit.
+
 ## Roadmap
 
 1. **Rung 1 (this branch):** simulator, explicit assumptions, browser dashboard, pairing invitation schema, tests.
@@ -123,6 +135,8 @@ Rung 6 proposes a **5 V DC, <=0.5 A commercial diffuse LED source**, an independ
 4. **Rung 4:** read-only instrument telemetry adapter and BenchKit trial export. Actual device and LightBridge adapter validation remain future work.
 5. **Rung 5:** synthetic commissioning, conformance harness and operator readiness guidance. Real controlled comparisons are still future work.
 
-6. **Rung 6 (this branch):** physical prototype design, structural limits and evidence-gated readiness planning. Physical qualification is still unperformed.
+6. **Rung 6:** physical prototype design, structural limits and evidence-gated readiness planning. Physical qualification is still unperformed.
+
+7. **Rung 7 (this branch):** LED off/on/off local analysis and signed receiver energy delta with baseline-drift flag. Actual meter acquisition and optical experiments remain unperformed.
 
 Original PoWE code is released under the [MIT license](LICENSE). Hardware safety and legal compliance remain the responsibility of anyone performing physical experiments.
