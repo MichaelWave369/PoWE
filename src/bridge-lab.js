@@ -32,10 +32,15 @@ export function createScenario({
   for(let second=0;second<durationS;second++){
     // Synthetic illumination periods, NOT real meter records.
     const burst=(second%14)<5;
+    const ambientReceiverJ=0.0002;
+    // Hypothetical fraction of this tick's source electrical DC input.
+    // Never larger than the source input; no real light conversion claim.
+    const sourceLinkedReceiverJ=sourceDcW*(burst?0.08:0.004);
     trace.push(Object.freeze({
       second,
       sourceDcJ:sourceDcW,
-      harvestedReceiverJ:burst?0.010:0.0006,
+      ambientReceiverJ,sourceLinkedReceiverJ,
+      harvestedReceiverJ:ambientReceiverJ+sourceLinkedReceiverJ,
       // Link-quality draws are shared across both policies at the same second.
       // Not PLB1 packet reception and not a physical camera observation.
       linkOk:next()>=0.12
@@ -73,7 +78,12 @@ export function validateScenario(x){
   for(let t=0;t<x.trace.length;t++){
     const record=x.trace[t];
     if(!record||record.second!==t||!safeNumber(record.sourceDcJ,0,2.5)||
-       !safeNumber(record.harvestedReceiverJ,0,1)||typeof record.linkOk!=="boolean"){
+       !safeNumber(record.harvestedReceiverJ,0,1)||
+       !safeNumber(record.ambientReceiverJ,0,1)||
+       !safeNumber(record.sourceLinkedReceiverJ,0,1)||
+       record.sourceLinkedReceiverJ>record.sourceDcJ+1e-12||
+       Math.abs(record.ambientReceiverJ+record.sourceLinkedReceiverJ-record.harvestedReceiverJ)>1e-10||
+       typeof record.linkOk!=="boolean"){
       fail("Invalid synthetic trace at second "+t);
     }
   }
@@ -93,7 +103,8 @@ export function simulatePolicy(scenario,policy){
   const x=validateScenario(scenario);
   if(policy!=="fixed"&&policy!=="adaptive")fail("Unknown policy");
   let stored=x.initialStorageJ;
-  let harvested=0,idleSpent=0,attemptSpent=0,spilled=0,sourceDcJ=0;
+  let harvested=0,sourceLinkedHarvestJ=0,ambientHarvestJ=0;
+  let idleSpent=0,attemptSpent=0,spilled=0,sourceDcJ=0;
   let attempts=0,successful=0,failed=0,deferred=0,brownouts=0;
   let lastAttemptS=-x.minimumAttemptSpacingS;
   const tasks=x.tasks.map(t=>({...t,state:"pending",attempts:0,deliveredAt:null}));
@@ -102,6 +113,8 @@ export function simulatePolicy(scenario,policy){
     const tick=x.trace[second];
     sourceDcJ+=tick.sourceDcJ;
     harvested+=tick.harvestedReceiverJ;
+    sourceLinkedHarvestJ+=tick.sourceLinkedReceiverJ;
+    ambientHarvestJ+=tick.ambientReceiverJ;
     const total=stored+tick.harvestedReceiverJ;
     spilled+=Math.max(0,total-x.storageCapacityJ);
     stored=Math.min(total,x.storageCapacityJ);
@@ -144,6 +157,7 @@ export function simulatePolicy(scenario,policy){
   return Object.freeze({
     schema:LAB_SCHEMA,policy,synthetic:true,
     sourceDcJ:num(sourceDcJ),harvestedReceiverJ:num(harvested),
+    sourceLinkedHarvestJ:num(sourceLinkedHarvestJ),ambientHarvestJ:num(ambientHarvestJ),
     initialStorageJ:x.initialStorageJ,finalStorageJ:num(stored),
     idleSpentJ:num(idleSpent),attemptSpentJ:num(attemptSpent),spilledJ:num(spilled),
     conservationErrorJ,attempts,successful,failed,deferred,brownouts,
@@ -167,6 +181,7 @@ export function comparePolicies(scenario){
     outcomeNotes:[
       "The synthetic LED source DC energy schedule is fixed and equal in both arms.",
       "The receiver energy trace and link-quality trace are identical for both scheduling policies.",
+      "Synthetic receiver harvest is divided into an ambient-light contribution and a model-only LED-linked contribution bounded by source electrical DC input.",
       "A lower source-DC-joules-per-success ratio is not measured optical conversion efficiency or wall-plug savings.",
       "Scheduling opportunity and policy differences can explain outcomes; no physical causality or real PLB1 transfer has been demonstrated."
     ],

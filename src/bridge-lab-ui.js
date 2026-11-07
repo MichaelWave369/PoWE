@@ -46,6 +46,8 @@ function displayComparison(){
     const grid=create("div",undefined,"bridge-policy-stats");
     metric(grid,"SOURCE DC ELECTRICAL INPUT",r.sourceDcJ.toFixed(3)+" J");
     metric(grid,"RECEIVER HARVESTED DC",r.harvestedReceiverJ.toFixed(3)+" J");
+    metric(grid,"MOCK LED-LINKED HARVEST",r.sourceLinkedHarvestJ.toFixed(3)+" J");
+    metric(grid,"SEPARATE AMBIENT HARVEST",r.ambientHarvestJ.toFixed(3)+" J");
     metric(grid,"RECEIVER SEND ATTEMPTS",r.attempts);
     metric(grid,"TASKS / SOURCE DC JOULE",r.tasksPerSourceDcJ===null?"N/A":r.tasksPerSourceDcJ.toFixed(3));
     metric(grid,"SPILLED RECEIVER ENERGY",r.spilledJ.toFixed(4)+" J");

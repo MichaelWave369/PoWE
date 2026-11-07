@@ -15,6 +15,8 @@ test("both policies share same physical source budget and receiver trace",()=>{
   assert.equal(r.provenance,"SIMULATED_ONLY");
   assert.equal(r.sourceEnergyInputIdentical,true);
   assert.equal(r.fixed.sourceDcJ,r.adaptive.sourceDcJ);
+  assert.ok(r.fixed.sourceLinkedHarvestJ<=r.fixed.sourceDcJ);
+  assert.ok(Math.abs(r.fixed.ambientHarvestJ+r.fixed.sourceLinkedHarvestJ-r.fixed.harvestedReceiverJ)<1e-8);
   assert.equal(r.hardwareValidated,false);
   assert.equal(r.actualLightBridgeConnected,false);
   assert.ok(r.fixed.conservationErrorJ<1e-8);
@@ -39,6 +41,8 @@ test("zero source DC trace never manufactures a tasks-per-source-joule claim",()
   assert.equal(r.adaptive.tasksPerSourceDcJ,null);
   assert.equal(r.relativeChangePct,null);
   assert.equal(r.sourceEnergyInputIdentical,true);
+  assert.equal(r.fixed.sourceLinkedHarvestJ,0);
+  assert.ok(r.fixed.ambientHarvestJ>0);
 });
 test("bad input traces, tasks and non-mock transport fail closed",()=>{
   const x=createScenario();
@@ -47,6 +51,8 @@ test("bad input traces, tasks and non-mock transport fail closed",()=>{
   const bad2={...x,trace:[{...x.trace[0],harvestedReceiverJ:-1},...x.trace.slice(1)]};
   assert.throws(()=>validateScenario(bad2),/Invalid synthetic trace/);
   assert.throws(()=>validateScenario({...x,transport:"real-power"}),/Invalid/);
+  const invented={...x,trace:[{...x.trace[0],sourceLinkedReceiverJ:0.9},...x.trace.slice(1)]};
+  assert.throws(()=>validateScenario(invented),/Invalid synthetic trace/);
   assert.throws(()=>validateScenario({...x,tasks:[{...x.tasks[0],id:"../"}]}),/invalid task id/);
   assert.throws(()=>createScenario({initialStorageJ:10,storageCapacityJ:1}));
   assert.throws(()=>createScenario({durationS:601}));

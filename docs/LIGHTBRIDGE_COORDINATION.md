@@ -14,7 +14,7 @@ The LightBridge companion documents also explicitly require identity/signature v
 
 The Rung 8 mock generator creates a deterministic per-second timeline of:
 - **electrical DC input to an abstract LED source** (fixed in advance; not AC wall-plug energy);
-- **receiver harvested electrical DC energy** into a bounded storage bucket;
+- **receiver harvested electrical DC energy** into a bounded storage bucket, with an explicitly separate ambient-light contribution and a hypothetical LED-linked component that cannot exceed electrical LED source input;
 - **link availability**, a shared synthetic Boolean per second, **not** captured PLB1/QR frames;
 - work-unit arrivals and deadlines.
 
@@ -27,6 +27,8 @@ One attempted work unit costs receiver-side stored electrical energy, including 
 
     initial_stored_J + harvested_receiver_J
        = final_stored_J + idle_consumed_J + attempt_consumed_J + overflow_J
+
+The synthetic source-linked PV harvest is scaled as an illustrative fraction of source input, while the independently labeled ambient component may remain nonzero even if LED input is zero. This is an assumed model relationship, not a measured conversion efficiency or a physically measured radiant flux.
 
 Source electrical DC input joules are tracked **separately**. They cannot be replaced by receiver harvested energy, and a better task-delivery ratio alone is not proof of better light-to-electric conversion.
 
