@@ -19,3 +19,5 @@ jobs:
         run: npm run qualify
       - name: Synthetic optical baseline dry run
         run: npm run optical:dry-run
+      - name: Synthetic LightBridge coordination dry run
+        run: npm run bridge:dry-run
