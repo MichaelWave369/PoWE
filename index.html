@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="./src/optical-controls.css" />
   <link rel="stylesheet" href="./src/bridge-lab.css" />
   <link rel="stylesheet" href="./src/plb1-interop.css" />
+  <link rel="stylesheet" href="./src/optical-field.css" />
 </head>
 <body>
   <main class="shell">
@@ -463,6 +464,51 @@
       </div>
     </section>
 
+
+    <section id="optical-field" class="panel field-lab" aria-labelledby="field-title">
+      <div class="section-title"><span>12 / TWO-DEVICE FIELD ANALYSIS</span><span>RUNG 10 · USER-REPORTED</span></div>
+      <h2 id="field-title">Take LightBridge out of the simulation.</h2>
+      <p>Conduct a separate screen-to-camera experiment using two physical devices in <a target="_blank" rel="noopener noreferrer" href="https://github.com/MichaelWave369/LightBridge">LightBridge</a>. Import the locally exported sender and receiver field logs here. The analyzer compares frame sequence membership, capture methods, local timing windows, failures and reconstructed-file claims. A synthetic example is available, but it is never called measured.</p>
+      <div class="field-columns">
+        <div class="field-pane">
+          <h3>A / Paired LightBridge field logs</h3>
+          <label class="field-upload" for="field-sender">Sender field log (JSON, max 4 MiB)
+            <input id="field-sender" type="file" accept=".json,application/json"/>
+            <small id="field-sender-name">No file selected</small>
+          </label>
+          <label class="field-upload" for="field-receiver">Receiver field log (JSON, max 4 MiB)
+            <input id="field-receiver" type="file" accept=".json,application/json"/>
+            <small id="field-receiver-name">No file selected</small>
+          </label>
+          <p>Optional receipt cross-check: both claimed receipts must be provided together.</p>
+          <label class="field-upload" for="field-sender-receipt">Sender receipt JSON
+            <input id="field-sender-receipt" type="file" accept=".json,application/json"/>
+          </label>
+          <label class="field-upload" for="field-receiver-receipt">Receiver receipt JSON
+            <input id="field-receiver-receipt" type="file" accept=".json,application/json"/>
+          </label>
+          <div class="field-actions">
+            <button id="field-demo">LOAD FABRICATED DEMO</button>
+            <button id="field-run" class="primary">ANALYZE FIELD LOGS</button>
+            <button id="field-reset">CLEAR</button>
+          </div>
+          <p id="field-status" class="field-status" role="status" aria-live="polite">No field logs loaded.</p>
+          <p class="field-warning">Manual-frame input is not camera capture. JSON logs can be edited or forged. No original transferred bytes, synchronized hardware clock, sensor measurement, authenticated peer, optical power, or physical presence is independently verified by this importer. <a href="https://github.com/MichaelWave369/PoWE/blob/main/docs/OPTICAL_FIELD_TESTING.md" target="_blank" rel="noopener noreferrer">Field test guide ↗</a></p>
+        </div>
+        <div class="field-pane">
+          <h3>B / Observable frame comparisons</h3>
+          <div id="field-results" class="field-results" aria-label="Frame-level comparison metrics"></div>
+          <h3>Reported exceptions and limitations</h3>
+          <div id="field-issues" class="field-issues"></div>
+          <h3>Receiver-entered test conditions</h3>
+          <div id="field-conditions" class="field-conditions"></div>
+          <div class="field-actions">
+            <button id="field-save" disabled>DOWNLOAD UNVERIFIED ANALYSIS</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <footer><span>PoWE / POWER OVER WIRELESS EXCHANGE</span><span>OPEN RESEARCH · LOCAL FIRST · NO REAL POWER TRANSMISSION</span></footer>
   </main>
   <script type="module" src="./src/app.js"></script>
@@ -474,5 +520,6 @@
   <script type="module" src="./src/optical-controls-ui.js"></script>
   <script type="module" src="./src/bridge-lab-ui.js"></script>
   <script type="module" src="./src/plb1-interop-ui.js"></script>
+  <script type="module" src="./src/optical-field-ui.js"></script>
 </body>
 </html>
