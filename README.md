@@ -138,6 +138,19 @@ Rung 8 adds two independent software-only capabilities:
 
 There is no runtime import of LightBridge into PoWE. Rung 8 **does not transmit PLB1 payloads**, control electrical hardware or grant pairing access. Read [the boundary and future interop gates](docs/LIGHTBRIDGE_COORDINATION.md).
 
+## Rung 9: Genuine PLB1 software file-byte interoperability
+
+Rung 9 adds an original, independent PLB1 file encoder/receiver in PoWE and **automated bidirectional binary interoperation against LightBridge's actual React console protocol source at pinned commit `d7cc1ea7ed31c66344a69ab2891ce5c9890d02ca`**.
+
+- **LightBridge → PoWE:** LightBridge generates frame payloads from real binary bytes, PoWE independently reassembles, optionally decrypts, and verifies protected and original-file SHA-256 hashes.
+- **PoWE → LightBridge:** PoWE prepares PLB1 frames that LightBridge's own Receiver and finalizeTransfer reconstruct and verify byte-for-byte.
+- Cross-repo CI tests encrypted and unencrypted inputs, incomplete transfer rejection, frame CRC errors, wrong passphrases and parity-assisted recovery.
+- New browser panel supports local file-to-PLB1 frame text export and local frame text-to-verified-file import with both sender and receiver receipts.
+- **No physical optical transfer was performed.** The software test passes bytes in memory, not through a camera, screen, receiver panel or optical-power circuit.
+- See [Rung 9 interoperability, security boundaries, and reproducibility](docs/PLB1_INTEROPERABILITY.md).
+
+Sender/receiver CRC and SHA success confirm reconstructed bytes, not who sent them or whether the peer has granted access. No QR invitation is promoted to authenticated identity, and PoWE never enables hardware power from a PLB1 payload.
+
 ## Roadmap
 
 1. **Rung 1:** simulator, explicit assumptions, browser dashboard, pairing invitation schema, tests.
@@ -150,6 +163,8 @@ There is no runtime import of LightBridge into PoWE. Rung 8 **does not transmit 
 
 7. **Rung 7:** LED off/on/off local analysis and signed receiver energy delta with baseline-drift flag. Actual meter acquisition and optical experiments remain unperformed.
 
-8. **Rung 8 (this branch):** mock fixed/adaptive energy-workload scheduling, plus untrusted LightBridge PLB1 receipt compatibility checks. Physical and identity/authentication validation remain future milestones.
+8. **Rung 8:** mock fixed/adaptive energy-workload scheduling, plus untrusted LightBridge PLB1 receipt compatibility checks. Physical and identity/authentication validation remain future milestones.
+
+9. **Rung 9 (this branch):** independent PLB1 file encoding/decoding and cross-repository verified binary-byte software interoperability. Physical camera tests, authenticated pairing and hardware energy delivery remain future work.
 
 Original PoWE code is released under the [MIT license](LICENSE). Hardware safety and legal compliance remain the responsibility of anyone performing physical experiments.

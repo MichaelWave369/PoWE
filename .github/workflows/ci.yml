@@ -21,3 +21,12 @@ jobs:
         run: npm run optical:dry-run
       - name: Synthetic LightBridge coordination dry run
         run: npm run bridge:dry-run
+      - name: Checkout pinned LightBridge reference protocol
+        uses: actions/checkout@v4
+        with:
+          repository: MichaelWave369/LightBridge
+          ref: d7cc1ea7ed31c66344a69ab2891ce5c9890d02ca
+          path: .interop/lightbridge
+          persist-credentials: false
+      - name: Cross-repository PLB1 binary interop
+        run: node scripts/plb1-crossrepo.mjs .interop/lightbridge/site/src/protocol.js

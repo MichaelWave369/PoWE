@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="./src/prototype.css" />
   <link rel="stylesheet" href="./src/optical-controls.css" />
   <link rel="stylesheet" href="./src/bridge-lab.css" />
+  <link rel="stylesheet" href="./src/plb1-interop.css" />
 </head>
 <body>
   <main class="shell">
@@ -409,6 +410,59 @@
       </div>
     </section>
 
+
+    <section id="plb1-interoperability" class="panel plb1-interoperability" aria-labelledby="plb1-title">
+      <div class="section-title"><span>11 / PLB1 FILE-BYTE INTEROP</span><span>RUNG 09 · OFFLINE SOFTWARE</span></div>
+      <h2 id="plb1-title">Now the actual bytes make the crossing.</h2>
+      <p>Encode a real local file into LightBridge-compatible PLB1 text frames, or reconstruct a file from LightBridge-generated frames. The decoder verifies the protected payload and reconstructed original file hashes, and optionally decrypts AES-GCM data. <strong>This exchanges software frame files, not light or electrical power.</strong></p>
+      <div class="plb1-columns">
+        <div class="plb1-pane">
+          <h3>A / Prepare PLB1 from a real local file</h3>
+          <label class="plb1-input" for="plb1-send-file">Input file (1 B–2 MiB)
+            <input id="plb1-send-file" type="file"/>
+          </label>
+          <label class="plb1-check" for="plb1-send-encrypted">
+            <input id="plb1-send-encrypted" type="checkbox" checked/>
+            Encrypt payload using AES-256-GCM and a passphrase (recommended)
+          </label>
+          <label class="plb1-input" for="plb1-send-password">Sender passphrase (not stored or included in receipts)
+            <input id="plb1-send-password" type="password" autocomplete="off" placeholder="Required when encryption is enabled"/>
+          </label>
+          <div class="plb1-buttons">
+            <button id="plb1-send-build" class="primary">PREPARE LOCAL FRAMES</button>
+            <button id="plb1-send-export" disabled>EXPORT PLB1 FRAMES</button>
+            <button id="plb1-send-receipt" disabled>EXPORT SENDER RECEIPT</button>
+          </div>
+          <div class="plb1-ledger">
+            <div><small>SYSTEMATIC BLOCKS</small><strong id="plb1-send-count">Not prepared</strong></div>
+            <div class="plb1-wide"><small>ORIGINAL FILE SHA-256</small><strong id="plb1-send-hash">Not computed</strong></div>
+          </div>
+          <p id="plb1-send-status" class="plb1-status" role="status" aria-live="polite">No file encoded. Frames and file contents remain local to your browser.</p>
+        </div>
+        <div class="plb1-pane">
+          <h3>B / Recover file bytes from PLB1 frames</h3>
+          <label class="plb1-input" for="plb1-receive-file">PLB1 line-delimited frame text (.txt, maximum 32 MiB)
+            <input id="plb1-receive-file" type="file" accept=".txt,.plb1,text/plain"/>
+          </label>
+          <label class="plb1-input" for="plb1-receive-password">Receiver passphrase for encrypted transfers
+            <input id="plb1-receive-password" type="password" autocomplete="off" placeholder="Leave blank only for unencrypted transfer"/>
+          </label>
+          <div class="plb1-buttons">
+            <button id="plb1-receive-decode" class="primary">VERIFY AND RECONSTRUCT</button>
+            <button id="plb1-receive-save" disabled>SAVE VERIFIED FILE</button>
+            <button id="plb1-receive-receipt" disabled>SAVE RECEIVER RECEIPT</button>
+            <button id="plb1-receive-clear">CLEAR</button>
+          </div>
+          <div class="plb1-ledger">
+            <div><small>RECOVERED BLOCKS</small><strong id="plb1-receive-progress">No frames decoded</strong></div>
+            <div class="plb1-wide"><small>INDEPENDENT ORIGINAL FILE SHA-256</small><strong id="plb1-receive-hash">Not verified</strong></div>
+          </div>
+          <p id="plb1-receive-status" class="plb1-status" role="status" aria-live="polite">No frame file selected.</p>
+          <p class="plb1-warning">File integrity is not identity proof. Anyone may forge a PLB1 frame source. A recovered file is untrusted input; never execute it automatically. The cross-repo CI tests use real LightBridge protocol bytes but no physical screen-to-camera transmission. <a href="https://github.com/MichaelWave369/PoWE/blob/main/docs/PLB1_INTEROPERABILITY.md" target="_blank" rel="noopener noreferrer">Rung 9 engineering report ↗</a></p>
+        </div>
+      </div>
+    </section>
+
     <footer><span>PoWE / POWER OVER WIRELESS EXCHANGE</span><span>OPEN RESEARCH · LOCAL FIRST · NO REAL POWER TRANSMISSION</span></footer>
   </main>
   <script type="module" src="./src/app.js"></script>
@@ -419,5 +473,6 @@
   <script type="module" src="./src/prototype-ui.js"></script>
   <script type="module" src="./src/optical-controls-ui.js"></script>
   <script type="module" src="./src/bridge-lab-ui.js"></script>
+  <script type="module" src="./src/plb1-interop-ui.js"></script>
 </body>
 </html>
