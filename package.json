@@ -6,11 +6,12 @@
   "description": "Local-first simulator for wireless energy budgets and coordination",
   "scripts": {
     "test": "node --test",
-    "check": "node --check src/model.js && node --check src/invitation.js && node --check src/app.js && node --check src/measurements.js && node --check src/measurements-ui.js && node --check src/benchkit.js && node --check src/benchkit-ui.js && node --check src/benchlink.js && node --check src/benchlink-ui.js && node --check src/commissioning.js && node --check src/commissioning-ui.js && node --check scripts/qualify.mjs && node --check src/prototype.js && node --check src/prototype-ui.js && node --check src/optical-controls.js && node --check src/optical-controls-ui.js && node --check src/bridge-lab.js && node --check src/bridge-lab-ui.js && node --check src/plb1-interop.js && node --check scripts/plb1-crossrepo.mjs && node --check src/plb1-interop-ui.js && node --check test/plb1-integrity.test.js && node --check src/optical-field.js && node --check src/optical-field-ui.js",
+    "check": "node --check src/model.js && node --check src/invitation.js && node --check src/app.js && node --check src/measurements.js && node --check src/measurements-ui.js && node --check src/benchkit.js && node --check src/benchkit-ui.js && node --check src/benchlink.js && node --check src/benchlink-ui.js && node --check src/commissioning.js && node --check src/commissioning-ui.js && node --check scripts/qualify.mjs && node --check src/prototype.js && node --check src/prototype-ui.js && node --check src/optical-controls.js && node --check src/optical-controls-ui.js && node --check src/bridge-lab.js && node --check src/bridge-lab-ui.js && node --check src/plb1-interop.js && node --check scripts/plb1-crossrepo.mjs && node --check src/plb1-interop-ui.js && node --check test/plb1-integrity.test.js && node --check src/optical-field.js && node --check src/optical-field-ui.js && node --check scripts/field-crossrepo.mjs",
     "qualify": "node scripts/qualify.mjs",
     "optical:dry-run": "node scripts/optical-dry-run.mjs",
     "bridge:dry-run": "node scripts/bridge-dry-run.mjs",
-    "interop:crossrepo": "node scripts/plb1-crossrepo.mjs .interop/lightbridge/site/src/protocol.js"
+    "interop:crossrepo": "node scripts/plb1-crossrepo.mjs .interop/lightbridge/site/src/protocol.js",
+    "field:crossrepo": "node scripts/field-crossrepo.mjs .interop/lightbridge-field/site/src/field-log.js"
   },
   "engines": {
     "node": ">=20"

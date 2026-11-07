@@ -30,3 +30,12 @@ jobs:
           persist-credentials: false
       - name: Cross-repository PLB1 binary interop
         run: node scripts/plb1-crossrepo.mjs .interop/lightbridge/site/src/protocol.js
+      - name: Checkout pinned LightBridge field-log reference
+        uses: actions/checkout@v4
+        with:
+          repository: MichaelWave369/LightBridge
+          ref: e31a7dddbf89f31d5f1661fcc5fdbb7ffd162cb8
+          path: .interop/lightbridge-field
+          persist-credentials: false
+      - name: Cross-repository optical field-log schema
+        run: node scripts/field-crossrepo.mjs .interop/lightbridge-field/site/src/field-log.js
