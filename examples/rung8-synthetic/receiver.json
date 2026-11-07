@@ -1,0 +1,10 @@
+{
+  "receiptType": "Parallax LightBridge Receiver Receipt",
+  "protocol": "PLB1",
+  "sessionId": "demoSession_01",
+  "originalSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "originalSize": 256,
+  "encryptionEnabled": true,
+  "integrityStatus": "PASS - protected payload and reconstructed file hashes matched",
+  "claimBoundary": "Local software receipt; no sender signature or security certification"
+}
