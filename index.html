@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="./src/commissioning.css" />
   <link rel="stylesheet" href="./src/prototype.css" />
   <link rel="stylesheet" href="./src/optical-controls.css" />
+  <link rel="stylesheet" href="./src/bridge-lab.css" />
 </head>
 <body>
   <main class="shell">
@@ -358,6 +359,56 @@
       </div>
     </section>
 
+
+    <section id="lightbridge-coordination" class="panel bridge-lab" aria-labelledby="bridge-title">
+      <div class="section-title"><span>10 / LIGHTBRIDGE COORDINATION</span><span>RUNG 08 · MOCK DATA PATH</span></div>
+      <h2 id="bridge-title">A bridge between the signal and the energy.</h2>
+      <p>Explore an energy-aware schedule against a fixed schedule with exactly the same <strong>synthetic</strong> source-energy, harvested receiver-energy, and link-quality traces. Separately, compare sender/receiver receipts produced by the <a href="https://github.com/MichaelWave369/LightBridge" target="_blank" rel="noopener noreferrer">LightBridge PLB1 console</a>. Neither feature authenticates a peer, powers equipment, or performs actual optical transmission.</p>
+      <div class="bridge-columns">
+        <div class="bridge-panel">
+          <h3>A / Same-trace scheduling comparison</h3>
+          <p>Work units are abstract, not actual PLB1 frames. The mock source electrical input is identical in both cases; timing alone differs.</p>
+          <div class="bridge-inputs">
+            <label for="bridge-seed">Deterministic seed<input id="bridge-seed" type="number" min="1" max="4294967295" value="369"/></label>
+            <label for="bridge-horizon">Duration (s)<input id="bridge-horizon" type="number" min="15" max="600" value="120"/></label>
+            <label for="bridge-interval">New task every (s)<input id="bridge-interval" type="number" min="1" max="60" value="6"/></label>
+            <label for="bridge-deadline">Task lifetime (s)<input id="bridge-deadline" type="number" min="1" max="120" value="18"/></label>
+            <label for="bridge-source">Mock source DC input (W)<input id="bridge-source" type="number" min="0" max="2.5" step="0.01" value="0.12"/></label>
+            <label for="bridge-idle">Receiver idle draw (W)<input id="bridge-idle" type="number" min="0" max="1" step="any" value="0.0004"/></label>
+            <label for="bridge-cost">Receiver frame attempt (J)<input id="bridge-cost" type="number" min=".000001" max="1" step="any" value="0.02"/></label>
+            <label for="bridge-spacing">Min attempt spacing (s)<input id="bridge-spacing" type="number" min="1" max="60" value="7"/></label>
+          </div>
+          <div class="bridge-buttons">
+            <button id="bridge-run" class="primary">RUN MOCK COMPARISON</button>
+            <button id="bridge-download" disabled>DOWNLOAD SYNTHETIC REPORT</button>
+          </div>
+          <p id="bridge-run-status" class="bridge-status" role="status" aria-live="polite">No mock comparison run.</p>
+          <div id="bridge-comparison" class="bridge-comparison" aria-label="Fixed and adaptive schedule outcomes"></div>
+        </div>
+        <div class="bridge-panel">
+          <h3>B / LightBridge PLB1 receipt checker</h3>
+          <p>Transfer something separately with LightBridge and export its local sender and receiver receipts, or load the entirely fabricated example. Matching *receipt fields* do not independently verify actual camera transfer or sender identity.</p>
+          <label class="bridge-upload" for="bridge-sender">LightBridge sender receipt JSON
+            <input id="bridge-sender" type="file" accept=".json,application/json"/>
+            <span id="bridge-sender-name" class="bridge-file-name">No receipt selected</span>
+          </label>
+          <label class="bridge-upload" for="bridge-receiver">LightBridge receiver receipt JSON
+            <input id="bridge-receiver" type="file" accept=".json,application/json"/>
+            <span id="bridge-receiver-name" class="bridge-file-name">No receipt selected</span>
+          </label>
+          <div class="bridge-buttons">
+            <button id="bridge-receipt-demo">FABRICATED RECEIPT DEMO</button>
+            <button id="bridge-receipt-check" class="primary">COMPARE RECEIPTS</button>
+            <button id="bridge-receipt-clear">CLEAR</button>
+          </div>
+          <p id="bridge-receipt-status" class="bridge-status" role="status" aria-live="polite">No local receipt pair checked.</p>
+          <h3 id="bridge-receipt-result" class="bridge-receipt-result">NOT CHECKED</h3>
+          <div id="bridge-receipt-issues" class="bridge-receipt-issues" aria-label="Receipt comparison warnings"></div>
+          <p class="bridge-warning">LightBridge PLB1 is a separate React app, not yet embedded here. This checker compares untrusted receipt claims; it does not verify bytes, cryptographic identities, permissions, physical optical reception or authenticated pairing. <a href="https://github.com/MichaelWave369/PoWE/blob/main/docs/LIGHTBRIDGE_COORDINATION.md" target="_blank" rel="noopener noreferrer">Rung 8 integration boundary ↗</a></p>
+        </div>
+      </div>
+    </section>
+
     <footer><span>PoWE / POWER OVER WIRELESS EXCHANGE</span><span>OPEN RESEARCH · LOCAL FIRST · NO REAL POWER TRANSMISSION</span></footer>
   </main>
   <script type="module" src="./src/app.js"></script>
@@ -367,5 +418,6 @@
   <script type="module" src="./src/commissioning-ui.js"></script>
   <script type="module" src="./src/prototype-ui.js"></script>
   <script type="module" src="./src/optical-controls-ui.js"></script>
+  <script type="module" src="./src/bridge-lab-ui.js"></script>
 </body>
 </html>
