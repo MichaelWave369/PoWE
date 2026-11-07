@@ -29,6 +29,13 @@ test("truncation excludes clean-coverage interpretations",()=>{
  pair.sender.droppedEvents=12;
  assert.equal(analyzeFieldPair(pair).state,"INCOMPLETE_OR_MIXED_SELF_REPORTED");
 });
+test("truncated sender log with a bounded missing tail remains reportable, not clean",()=>{
+ const pair=clone(EXAMPLE_PAIR);
+ pair.sender.events.pop();pair.sender.droppedEvents=1;
+ const r=analyzeFieldPair(pair);
+ assert.equal(r.state,"INCOMPLETE_OR_MIXED_SELF_REPORTED");
+ assert.ok(r.issues.some(x=>x.includes("truncated")));
+});
 test("mismatched sender and receiver sessions are rejected",()=>{
  const pair=clone(EXAMPLE_PAIR);
  pair.receiver.sessionId="different_999";

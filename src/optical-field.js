@@ -56,16 +56,23 @@ function validate(log,role){
       }else if(event.type==="verification_failure")failure++;
     }
   }
-  if(role==="sender"&&generated!==recordCount(log,"displayed"))
+  // A bounded recorder may drop *trailing* events while retaining aggregate
+  // totals. Allow that mismatch only if an explicit droppedEvents count explains it.
+  const countMatches=(counter,observedCount)=>{
+    const total=recordCount(log,counter);
+    return total===observedCount||(log.droppedEvents>0 &&
+      total>=observedCount&&total-observedCount<=log.droppedEvents);
+  };
+  if(role==="sender"&&!countMatches("displayed",generated))
     fail("Sender frame counter mismatch");
   if(role==="receiver"){
-    if(observed!==recordCount(log,"observed")||
-      camera!==recordCount(log,"observedCamera")||
-      manual!==recordCount(log,"observedManual")||
-      duplicates!==recordCount(log,"duplicate")||
-      rejected!==recordCount(log,"rejected")||
-      success!==recordCount(log,"verificationSucceeded")||
-      failure!==recordCount(log,"verificationFailed")){
+    if(!countMatches("observed",observed)||
+      !countMatches("observedCamera",camera)||
+      !countMatches("observedManual",manual)||
+      !countMatches("duplicate",duplicates)||
+      !countMatches("rejected",rejected)||
+      !countMatches("verificationSucceeded",success)||
+      !countMatches("verificationFailed",failure)){
       fail("Receiver event counters mismatch");
     }
     if(recordCount(log,"scanQrDecoded")>recordCount(log,"scanAttempts"))
