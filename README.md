@@ -151,6 +151,18 @@ Rung 9 adds an original, independent PLB1 file encoder/receiver in PoWE and **au
 
 Sender/receiver CRC and SHA success confirm reconstructed bytes, not who sent them or whether the peer has granted access. No QR invitation is promoted to authenticated identity, and PoWE never enables hardware power from a PLB1 payload.
 
+## Rung 10: Real optical field-test instrumentation
+
+Rung 10 creates a cross-repository *testing workflow*, not a claim of a completed physical experiment:
+
+- LightBridge React has sender/receiver **unsigned local field logs** for QR generation, camera-vs-manual frame observations, duplicate/rejected sequences, optional physical setup notes and verified reconstructed-file hashes.
+- PoWE imports both self-reported logs, validates event order/counters/sessions, and compares unique observed camera-frame sequences to sender-generated QR sequences.
+- A separate receipt comparison can check claimed SHA and file-length consistency. Neither receipts nor JSON logs authenticate physical device presence or peer identity.
+- The analyzer explicitly **does not call unmatched sequence numbers optical frame loss**, and never subtracts unsynchronized sender and receiver clocks to claim one-way latency.
+- Read [how to run and interpret a real two-device test](docs/OPTICAL_FIELD_TESTING.md) and export the analysis for later independent review.
+
+No real screen-to-camera observations have been collected by this PR; tests use synthetic field logs only.
+
 ## Roadmap
 
 1. **Rung 1:** simulator, explicit assumptions, browser dashboard, pairing invitation schema, tests.
@@ -165,6 +177,8 @@ Sender/receiver CRC and SHA success confirm reconstructed bytes, not who sent th
 
 8. **Rung 8:** mock fixed/adaptive energy-workload scheduling, plus untrusted LightBridge PLB1 receipt compatibility checks. Physical and identity/authentication validation remain future milestones.
 
-9. **Rung 9 (this branch):** independent PLB1 file encoding/decoding and cross-repository verified binary-byte software interoperability. Physical camera tests, authenticated pairing and hardware energy delivery remain future work.
+9. **Rung 9:** independent PLB1 file encoding/decoding and cross-repository verified binary-byte software interoperability. Physical camera tests, authenticated pairing and hardware energy delivery remain future work.
+
+10. **Rung 10 (this branch):** sender/receiver field-event capture and self-reported optical test analysis; physical two-device validation is still pending.
 
 Original PoWE code is released under the [MIT license](LICENSE). Hardware safety and legal compliance remain the responsibility of anyone performing physical experiments.
